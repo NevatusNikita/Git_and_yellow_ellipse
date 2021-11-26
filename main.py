@@ -12,8 +12,8 @@ class Example(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        uic.loadUi('01.ui', self)  # Загружаем дизайн
-        self.pushButton.clicked.connect(self.draw)
+        uic.loadUi('UI.ui', self)  # Загружаем дизайн
+        self.btn.clicked.connect(self.paint)
         self.do_paint = False
         self.centre_x = 400
         self.centre_y = 300
@@ -22,23 +22,28 @@ class Example(QMainWindow):
         if self.do_paint:
             qp = QPainter()
             qp.begin(self)
-            self.draw(qp)
+            self.draw_flag(qp)
             qp.end()
 
     def paint(self):
         self.do_paint = True
         self.repaint()
 
-    def draw(self, qp):
-        fib_x = randint(1, 280)
-        fib_y = randint(1, 280)
-        circle_x1 = self.centre_x - fib_x
-        circle_x2 = self.centre_x + fib_x
-        circle_y1 = self.centre_y - fib_y
-        circle_y2 = self.centre_y + fib_y
+    def draw(self):
+        qp = QPainter()
+        qp.begin(self)
+        fib = randint(1, 280)
+        circle_x1 = self.centre_x - fib
+        circle_x2 = self.centre_x + fib
+        circle_y1 = self.centre_y - fib
+        circle_y2 = self.centre_y + fib
         qp.setBrush(QColor(255, 255, 0))
         qp.drawEllipse(circle_x1, circle_y1, circle_x2, circle_y2)
-        self.paint()
+        qp.end()
+
+
+def except_hook(cls, exception, traceback):
+    sys.__excepthook__(cls, exception, traceback)
 
 
 if __name__ == '__main__':
