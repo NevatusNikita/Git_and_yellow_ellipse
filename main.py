@@ -32,7 +32,7 @@ class Example(QMainWindow):
     def draw(self):
         qp = QPainter()
         qp.begin(self)
-        fib = randint(1, 280)
+        fib = randint(1, 299)
         circle_x1 = self.centre_x - fib
         circle_x2 = self.centre_x + fib
         circle_y1 = self.centre_y - fib
